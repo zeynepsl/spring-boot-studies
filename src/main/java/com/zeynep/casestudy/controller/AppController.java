@@ -1,5 +1,7 @@
 package com.zeynep.casestudy.controller;
 
+import com.zeynep.casestudy.model.AuthRequest;
+import com.zeynep.casestudy.security.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AppController {
 
-    private final UserInfoService service;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AppController(UserInfoService service, JwtService jwtService, AuthenticationManager authenticationManager) {
+    public AppController(JwtService jwtService, AuthenticationManager authenticationManager) {
+        this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
     }
 
@@ -35,4 +37,5 @@ public class AppController {
             throw new UsernameNotFoundException("invalid user request !");
         }
     }
+
 }
