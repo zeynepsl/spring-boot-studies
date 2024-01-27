@@ -8,11 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AppController {
 
-    @GetMapping("/login")
-    String login() {
-        return "login";
-    }
-
     @GetMapping("/welcome")
     public String welcome() {
         return "Welcome this endpoint is not secure";
