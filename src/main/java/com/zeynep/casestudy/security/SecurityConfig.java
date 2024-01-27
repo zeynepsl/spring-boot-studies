@@ -43,13 +43,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/welcome").permitAll()
-                        .requestMatchers("/auth/user/**", "/auth/admin/**").authenticated()
+                        .requestMatchers("/welcome").permitAll()
+                        .requestMatchers("/user/userProfile/**", "/admin/adminProfile/**").authenticated()
                 )
-                .formLogin(formLogin -> formLogin
+                .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
-                ).build();
+                )
+                .build();
     }
 
     // Password Encoding
