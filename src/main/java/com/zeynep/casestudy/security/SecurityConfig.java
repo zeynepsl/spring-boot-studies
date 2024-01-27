@@ -19,17 +19,40 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    // User Creation
-    // Configuring HttpSecurity
+    /* Configuring HttpSecurity
+    we are providing The Authorization
+
+    Authorization gives those users(principal, teachers) permission to access a resource(principal room, staff room).
+
+    For Authorization, we need to get hold of HttpSecurity
+    we need to configure SecurityFilterChain thanks to a method which takes HttpSecurity as a parameter
+
+    We need to map a path to a role, for that, we have used requestMatchers() method. We will go from most restrictive to least restrictive.
+    */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("/user").hasAnyRole("USER","ADMIN")
+                        .requestMatchers("/").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults())//Here we're using the httpBasic() element to define Basic Authentication inside the SecurityFilterChain bean.
                 .build();
+
     }
 
-    // we provide user infos in memory
+    /*
+     ** we are providing The Authentication **
+     *    Authentication confirms that users(principal, teachers, and students) are who they say they are.    *
+     The InMemoryUserDetailsManager provides management of UserDetails by implementing the UserDetailsManager interface.
+     UserDetails-based authentication is used by Spring Security when it is configured to accept a username and password for authentication.
+
+     we have created two users and stored them in the InMemoryUserDetailsManager class object.
+
+      we have used Spring Security’s InMemoryUserDetailsManager class which implements UserDetailsService to provide support for username/password-based authentication that is stored in memory.
+    */
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails zeynep = User.builder().username("zeynep").password(passwordEncoder().encode("zeynep@123")).roles("USER")
@@ -40,7 +63,13 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(zeynep,admin);
     }
 
-    // Password Encoding
+    /*
+    Password Encoding
+    we are using PasswordEncoder to encode the password.
+    Spring Security’s PasswordEncoder interface is used to perform a one-way transformation of a password to let the password be stored securely.
+    We are using BCryptPasswordEncoder class which implements the PasswordEncoder interface.
+    The BCryptPasswordEncoder class implementation uses the widely supported bcrypt algorithm to hash the passwords.
+    */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
