@@ -1,8 +1,8 @@
 package com.zeynep.casestudy.security;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,38 +19,25 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-
     // User Creation
-    @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-
-        // InMemoryUserDetailsManager
-        UserDetails admin = User.withUsername("Amiya")
-                .password(encoder.encode("123"))
-                .roles("ADMIN", "USER")
-                .build();
-
-        UserDetails user = User.withUsername("Ejaz")
-                .password(encoder.encode("123"))
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, user);
-    }
-
     // Configuring HttpSecurity
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/welcome").permitAll()
-                        .requestMatchers("/user/userProfile/**", "/admin/adminProfile/**").authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .permitAll()
-                )
+                .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults())
                 .build();
+    }
+
+    // we provide user infos in memory
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails zeynep = User.builder().username("zeynep").password(passwordEncoder().encode("zeynep@123")).roles("USER")
+                .build();
+
+        UserDetails admin = User.builder().username("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(zeynep,admin);
     }
 
     // Password Encoding
@@ -58,4 +45,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
