@@ -13,6 +13,7 @@ public class AuthRequest {
         this.password = password;
     }
 
+
     public String getUsername() {
         return username;
     }
