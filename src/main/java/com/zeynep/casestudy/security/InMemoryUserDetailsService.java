@@ -21,15 +21,17 @@ public class InMemoryUserDetailsService implements UserDetailsService {
     private final Map<String, User> users = new ConcurrentHashMap<>();
 
     public InMemoryUserDetailsService() {
-        users.put(USER,new User(USER, "{noop}"+USER, List.of(USER_ROLE)));
-        users.put(ADMIN, new User(ADMIN, "{noop}"+ADMIN, List.of(ADMIN_ROLE)));
+        users.put(USER, new User(USER, "{noop}" + USER, List.of(USER_ROLE)));
+        users.put(ADMIN, new User(ADMIN, "{noop}" + ADMIN, List.of(ADMIN_ROLE)));
     }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return Optional.ofNullable(users.get(username))
                 .map(this::getUser)
-                .orElseThrow(()-> new RuntimeException(String.format( "user = %s not present ", username)));
+                .orElseThrow(() -> new RuntimeException(String.format("user = %s not present ", username)));
     }
+
     private UserDetails getUser(User user) {
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.username())

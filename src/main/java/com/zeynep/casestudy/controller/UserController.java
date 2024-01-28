@@ -4,7 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController("/msg/v1")
 class UserController {
 
     /*
@@ -12,7 +12,7 @@ class UserController {
     Well, if we add Spring security dependency to the Spring boot project then by default Spring Security secures all the application URLs. */
 
     @GetMapping
-    public String  greetings() {
+    public String greetings() {
         return "Hello world!";
     }
 
@@ -20,6 +20,7 @@ class UserController {
     public String getUser(Authentication authentication) {
         return "Hello Spring Security User: " + authentication.getName();
     }
+
     @GetMapping("/admin")
     public String getAdmin(Authentication authentication) {
         return "Hello Spring Security admin: " + authentication.getName();
@@ -34,5 +35,6 @@ class UserController {
     // https://springjavatutorial.medium.com/spring-security-in-memory-authentication-in-spring-boot-a1870db57059
     // https://www.javaguides.net/2023/04/spring-security-tutorial-in-memory-authentication.html
     // https://medium.com/@ritesh.panigrahi/spring-security-in-memory-authentication-and-authorization-dcb9cc8baf19
+
 
 }
