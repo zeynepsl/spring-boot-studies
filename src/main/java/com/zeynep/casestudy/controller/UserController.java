@@ -31,10 +31,12 @@ class UserController {
         return "Hello Spring Security other users";
     }
 
-    //sources:
+    //acknowledgements:
     // https://springjavatutorial.medium.com/spring-security-in-memory-authentication-in-spring-boot-a1870db57059
     // https://www.javaguides.net/2023/04/spring-security-tutorial-in-memory-authentication.html
     // https://medium.com/@ritesh.panigrahi/spring-security-in-memory-authentication-and-authorization-dcb9cc8baf19
+    // https://www.geeksforgeeks.org/spring-boot-3-0-jwt-authentication-with-spring-security-using-mysql-database/
+    // https://github.com/YouTubeProjectsCode/Spring_Secuirty-Angular_Authentication-CodeElevate/tree/main/Spring-Secuirty-Jwt-In-Spring-Boot-3
 
 
 }
