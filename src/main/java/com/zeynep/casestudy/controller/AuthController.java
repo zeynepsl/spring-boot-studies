@@ -20,6 +20,7 @@ import java.util.Map;
 public class AuthController {
 
     private final AuthService authService;
+
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> authRequest(@RequestBody AuthRequestDto authRequestDto) {
         log.info("AuthResource.authRequest start {}", authRequestDto);

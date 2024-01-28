@@ -19,12 +19,12 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Map<String, String> authRequest(AuthRequestDto authRequestDto) {
-        final var authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDto.userName(), authRequestDto.password()));
-        final var userDetails =  (UserDetails) authenticate.getPrincipal();
+        final var authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDto.username(), authRequestDto.password()));
+        final var userDetails = (UserDetails) authenticate.getPrincipal();
         return getToken(userDetails);
     }
 
-    public Map<String, String> getToken( UserDetails userDetails) {
+    public Map<String, String> getToken(UserDetails userDetails) {
         final var roles = userDetails.getAuthorities();
         final var username = userDetails.getUsername();
         final var token = jwtService.generateToken(Map.of("role", roles), username);
