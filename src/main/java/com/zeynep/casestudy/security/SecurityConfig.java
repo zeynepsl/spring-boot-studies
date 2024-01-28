@@ -61,6 +61,22 @@ public class SecurityConfig {
         UserDetails admin = User.builder().username("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(zeynep,admin);
+        /*
+
+        Non-persistent implementation of UserDetailsManager which is backed by an in-memory map.
+        Mainly intended for testing and demonstration purposes, where a full blown persistent system isn't required.
+        An extension of the UserDetailsService which provides the ability to create new users and update existing ones.
+
+        public interface UserDetailsManager extends UserDetailsService
+         --> An extension of the UserDetailsService which provides the ability to create new users and update existing ones.
+         create update delete user .. methods
+
+         public interface UserDetailsService
+         --> Core interface which loads user-specific data.
+         It is used throughout the framework as a user DAO and is the strategy used by the DaoAuthenticationProvider.
+         It has only one method -> UserDetails loadUserByUsername(String username)
+         */
+
     }
 
     /*
