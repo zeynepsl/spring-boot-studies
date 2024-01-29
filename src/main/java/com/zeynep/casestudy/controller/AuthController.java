@@ -37,5 +37,4 @@ public class AuthController {
         log.info("AuthResource.authRequest end {}", userRegistrationResponse);
         return new ResponseEntity<>(userRegistrationResponse, HttpStatus.OK);
     }*/
-
 }
