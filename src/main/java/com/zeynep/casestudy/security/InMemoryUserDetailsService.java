@@ -1,6 +1,5 @@
 package com.zeynep.casestudy.security;
 
-import com.zeynep.casestudy.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +11,12 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
-public class InMemoryUserDetailsService implements UserDetailsService {
+public class InMemoryUserDetailsService  {
+
+    /*
+
+    implements UserDetailsService
+
     public static final String USER = "user";
     public static final String ADMIN = "admin";
     public static final String USER_ROLE = "USER";
@@ -38,5 +42,5 @@ public class InMemoryUserDetailsService implements UserDetailsService {
                 .password(user.password())
                 .roles(user.roles().toArray(new String[0]))
                 .build();
-    }
+    }*/
 }

@@ -11,6 +11,7 @@ class UserController {
     we create a simple REST API and protect it using Spring Security.
     Well, if we add Spring security dependency to the Spring boot project then by default Spring Security secures all the application URLs. */
 
+    /*
     @GetMapping
     public String greetings() {
         return "Hello world!";
@@ -30,6 +31,8 @@ class UserController {
     public String getAll() {
         return "Hello Spring Security other users";
     }
+
+    */
 
     //acknowledgements:
     // https://springjavatutorial.medium.com/spring-security-in-memory-authentication-in-spring-boot-a1870db57059
