@@ -1,7 +1,5 @@
 package com.zeynep.casestudy.controller;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/msg/v1")
@@ -39,6 +37,7 @@ class UserController {
     // https://www.javaguides.net/2023/04/spring-security-tutorial-in-memory-authentication.html
     // https://medium.com/@ritesh.panigrahi/spring-security-in-memory-authentication-and-authorization-dcb9cc8baf19
     // https://www.geeksforgeeks.org/spring-boot-3-0-jwt-authentication-with-spring-security-using-mysql-database/
+    // https://github.com/YouTubeProjectsCode/Spring_Secuirty-Angular_Authentication-CodeElevate/tree/main/Spring-Secuirty-Jwt-In-Spring-Boot-3
     // https://github.com/YouTubeProjectsCode/Spring_Secuirty-Angular_Authentication-CodeElevate/tree/main/Spring-Secuirty-Jwt-In-Spring-Boot-3
 
 

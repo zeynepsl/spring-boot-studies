@@ -1,9 +1,8 @@
 package com.zeynep.casestudy.security;
 
 import com.zeynep.casestudy.filter.JwtAuthenticationFilter;
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-
 import com.zeynep.casestudy.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,8 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
-import lombok.RequiredArgsConstructor;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
@@ -28,9 +26,6 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserService userService;
-    /*
-    private final UserDetailsService userDetailsService;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;*/
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -62,36 +57,5 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
-/*
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .cors(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/v1/login").permitAll()
-                        .anyRequest().authenticated())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))//Spring Security will never create an HttpSession and it will never use it to obtain the SecurityContext
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .userDetailsService(userDetailsService)
-                .build();
-
-    }*/
-
-    /*
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails zeynep = User.builder().username("zeynep").password(passwordEncoder().encode("zeynep@123")).roles("USER")
-                .build();
-
-        UserDetails admin = User.builder().username("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(zeynep,admin);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }*/
 
 }

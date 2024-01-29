@@ -1,10 +1,10 @@
 package com.zeynep.casestudy.service;
 
-import com.zeynep.casestudy.model.JwtAuthenticationResponse;
-import com.zeynep.casestudy.model.SignUpRequest;
-import com.zeynep.casestudy.model.SigninRequest;
 import com.zeynep.casestudy.model.entity.Role;
 import com.zeynep.casestudy.model.entity.User;
+import com.zeynep.casestudy.model.request.SignUpRequest;
+import com.zeynep.casestudy.model.request.SigninRequest;
+import com.zeynep.casestudy.model.response.JwtAuthenticationResponse;
 import com.zeynep.casestudy.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
