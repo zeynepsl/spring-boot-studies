@@ -1,4 +1,4 @@
-package com.zeynep.casestudy.model;
+package com.zeynep.casestudy.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SigninRequest {
+public class SignUpRequest {
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
 }
