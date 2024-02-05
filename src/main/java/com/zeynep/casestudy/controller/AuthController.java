@@ -1,8 +1,8 @@
 package com.zeynep.casestudy.controller;
 
-import com.zeynep.casestudy.model.request.SignUpRequest;
-import com.zeynep.casestudy.model.request.SigninRequest;
-import com.zeynep.casestudy.model.response.JwtAuthenticationResponse;
+import com.zeynep.casestudy.model.JwtAuthenticationResponse;
+import com.zeynep.casestudy.model.SignUpRequest;
+import com.zeynep.casestudy.model.SigninRequest;
 import com.zeynep.casestudy.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authenticationService;
-
     @PostMapping("/signup")
     public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody SignUpRequest request) {
         return ResponseEntity.ok(authenticationService.signup(request));
@@ -37,4 +36,5 @@ public class AuthController {
         log.info("AuthResource.authRequest end {}", userRegistrationResponse);
         return new ResponseEntity<>(userRegistrationResponse, HttpStatus.OK);
     }*/
+
 }
