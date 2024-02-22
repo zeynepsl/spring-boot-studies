@@ -1,4 +1,4 @@
-package com.zeynep.casestudy.service;
+package com.zeynep.casestudy.service.impl;
 
 import com.zeynep.casestudy.model.JwtAuthenticationResponse;
 import com.zeynep.casestudy.model.SignUpRequest;
@@ -6,6 +6,8 @@ import com.zeynep.casestudy.model.SigninRequest;
 import com.zeynep.casestudy.model.entity.Role;
 import com.zeynep.casestudy.model.entity.User;
 import com.zeynep.casestudy.repository.UserRepository;
+import com.zeynep.casestudy.service.AuthService;
+import com.zeynep.casestudy.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,7 +39,15 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public JwtAuthenticationResponse signin(SigninRequest request) {
+        //The process begins when a user sends a sign-in request to the Service
+        //An Authentication object called UsernamePasswordAuthenticationToken is then generated, using the provided username and password:
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        /*The AuthenticationManager is responsible for authenticating the Authentication object,
+        handling all necessary tasks. If the username or password is incorrect,
+        an exception is thrown, and a response with HTTP Status 403 is returned to the user.
+
+        UsernamePasswordAuthenticationToken --> A type of Authentication object which can be created from a username and password that are submitted.
+        AuthenticationManager: Processes authentication object and will do all authentication jobs for us. */
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         var jwt = jwtService.generateToken(user);

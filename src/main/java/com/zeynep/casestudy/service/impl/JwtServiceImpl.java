@@ -1,5 +1,6 @@
-package com.zeynep.casestudy.service;
+package com.zeynep.casestudy.service.impl;
 
+import com.zeynep.casestudy.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
