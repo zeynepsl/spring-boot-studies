@@ -2,10 +2,12 @@ package com.zeynep.casestudy.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zeynep.casestudy.model.SignUpRequest;
 import com.zeynep.casestudy.model.entity.RequestLog;
 import com.zeynep.casestudy.service.RequestLogService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -45,5 +47,26 @@ public class SavingAttemptAspect {
 
     @Pointcut("execution(public * com.zeynep.casestudy.controller.AuthController.sign*(*))")
     public void allSigns(){}
+
+
+    //within ile de aynısını yapabilirsin:
+    /*
+    @Before("demo()")
+    public void demeyuDene(){
+        System.out.println("auth controllerdan once");
+    }
+
+    @Pointcut("within(com.zeynep.casestudy.controller.AuthController)")
+    public void demo(){}
+    */
+
+    // aynı zamanda args ile de
+
+    /*
+    @Before("args(request)")
+    public void demo(SignUpRequest request){
+        System.out.println("auth controllerdan once");
+    }*/
+
 
 }
