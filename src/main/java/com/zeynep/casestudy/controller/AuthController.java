@@ -1,5 +1,6 @@
 package com.zeynep.casestudy.controller;
 
+import com.zeynep.casestudy.aspect.Timed;
 import com.zeynep.casestudy.model.JwtAuthenticationResponse;
 import com.zeynep.casestudy.model.SignUpRequest;
 import com.zeynep.casestudy.model.SigninRequest;
@@ -19,13 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authenticationService;
+
+    @Timed
     @PostMapping("/signup")
-    public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody SignUpRequest request) {
+    public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody SignUpRequest request) throws InterruptedException {
+        Thread.sleep(1000);
         return ResponseEntity.ok(authenticationService.signup(request));
     }
 
+    @Timed
     @PostMapping("/signin")
-    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
+    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) throws InterruptedException {
+        Thread.sleep(1000);
         return ResponseEntity.ok(authenticationService.signin(request));
     }
 

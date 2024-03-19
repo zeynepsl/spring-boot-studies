@@ -8,7 +8,7 @@ spring:
       # New database is created when application starts and destroyed when application is stopped
       ddl-auto: create-drop
     # Show sql when spring data jpa performs query
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         # Format queries
@@ -26,3 +26,6 @@ spring:
 token:
   signing:
     key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
+
+server:
+  port: 8081
