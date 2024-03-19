@@ -7,6 +7,7 @@ import com.zeynep.casestudy.model.entity.RequestLog;
 import com.zeynep.casestudy.service.RequestLogService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -45,22 +46,36 @@ public class SavingAttemptAspect {
         requestLogService.save(requestLog);
     }
 
+    /*
+    we have defined advice that will be run before and after the target method
+    @annotation(Timed) is a pointcut, which means that all methods annotated with @Timed will be associated with this advice
+    Inside advice,
+    we measure time before and after target method execution (joinPoint.proceed()) and log difference to the output
+    */
+    //@Around("allSigns()")
+    @Around("@annotation(Timed)")
+    public Object logMethodExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
+        long start = System.currentTimeMillis();
+        Object proceed = joinPoint.proceed();
+        long executionTime = System.currentTimeMillis() - start;
+        System.out.println(joinPoint.getSignature() + " executed in " + executionTime + "ms");
+        return proceed;
+    }
+
     @Pointcut("execution(public * com.zeynep.casestudy.controller.AuthController.sign*(*))")
     public void allSigns(){}
 
 
-    //within ile de aynısını yapabilirsin:
     /*
+    ypu can same functionality with "within" and "args":
+
     @Before("demo()")
     public void demeyuDene(){
         System.out.println("auth controllerdan once");
     }
-
     @Pointcut("within(com.zeynep.casestudy.controller.AuthController)")
     public void demo(){}
     */
-
-    // aynı zamanda args ile de
 
     /*
     @Before("args(request)")

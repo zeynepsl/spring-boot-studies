@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-@Aspect//bu sınıfın metotları advice olacak, aspect sınıf tanımlamak
+@Aspect//we have declared that this class is an aspect
 @Component // IoC container icinde initialize olması icin , bu classı bean olarak initiliaz eden bir anatasyon
 public class LoggingAspect {
 
