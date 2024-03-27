@@ -1,0 +1,44 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build_and_push:
+    name: Build & Push to DockerHub
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Docker Build and Push to DockerHub
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: app:latest
+
+  deploy_to_droplet:
+    runs-on: ubuntu-latest
+    needs: build_and_push
+    name: Deploy to Droplet
+    steps:
+      - name: Connect with SSH and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /boredapp
+            docker-compose app
+            docker rm app
+            docker pull app:latest
+            docker-compose up -d app
+            docker ps -a
