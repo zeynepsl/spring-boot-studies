@@ -1,9 +1,11 @@
 #Base image with java 17, it defines the base image from openjdk:17-jdk-slim
 #set working directory
-WORKDIR /app
-FROM maven:3.6.3-openjdk-11 AS build
-RUN mvn clean package -DskipTests
+FROM maven:3.6.3-openjdk-17 AS build
 
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn -f /app clean package -DskipTests
 FROM openjdk:17-jdk-slim
 #Copy jar file into container
 COPY target/case-study-0.0.1-SNAPSHOT.jar /app
