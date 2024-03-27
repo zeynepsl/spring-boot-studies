@@ -1,10 +1,12 @@
 #Base image with java 17, it defines the base image from openjdk:17-jdk-slim
-FROM openjdk:17-jdk-slim
 #set working directory
 WORKDIR /app
+FROM maven:3.6.3-openjdk-11 AS build
+RUN mvn clean package -DskipTests
+
+FROM openjdk:17-jdk-slim
 #Copy jar file into container
 COPY target/case-study-0.0.1-SNAPSHOT.jar /app
-#RUN --mount=type=cache,target=/root/.m2 mvn -f /app/pom.xml clean package -DskipTests
 EXPOSE 8080
 #Command to run  your application
 CMD ["java", "-jar", "case-study-0.0.1-SNAPSHOT.jar"]
