@@ -56,5 +56,4 @@ docker build -t app .
 
 docker run -p 8080:8080 app:latest
 docker run -d -p 8080:8080 --name bored-app --link bored-db ilkerguldali/boredapp:latest
-
 */
