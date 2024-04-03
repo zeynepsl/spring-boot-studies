@@ -5,6 +5,7 @@ FROM maven:3.6.3-openjdk-17 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
+COPY target .
 RUN mvn -f /app clean package -DskipTests
 FROM openjdk:17-jdk-slim
 #Copy jar file into container
