@@ -65,7 +65,6 @@ public class SavingAttemptAspect {
     @Pointcut("execution(public * com.zeynep.casestudy.controller.AuthController.sign*(*))")
     public void allSigns(){}
 
-
     /*
     ypu can same functionality with "within" and "args":
 
