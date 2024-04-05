@@ -1,0 +1,6 @@
+version: "1.0"
+services:
+  api:
+    build:
+      context: ./app
+    restart: always
