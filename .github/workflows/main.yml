@@ -33,15 +33,18 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script_stop: true
           script:
+            docker stop app || true
+            docker rm app || true
+            docker run -d -p 8080:8080 --name app app
 
-            # Login to registry
-            docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
-            # Stop running container
-            docker stop $(echo app)
-            # Remove old container
-            docker rm $(echo app)
-            # Run a new container from a new image
-            docker run -d \
-            --restart always \
-            --name $(echo app) \
-            $(echo registry.digitalocean.com/zeynep16)/$(echo app):$(echo $GITHUB_SHA | head -c7)
+#            # Login to registry
+#            docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
+#            # Stop running container
+#            docker stop $(echo app)
+#            # Remove old container
+#            docker rm $(echo app)
+#            # Run a new container from a new image
+#            docker run -d \
+#            --restart always \
+#            --name $(echo app) \
+#            $(echo registry.digitalocean.com/zeynep16)/$(echo app):$(echo $GITHUB_SHA | head -c7)
