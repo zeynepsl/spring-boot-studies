@@ -1,50 +1,21 @@
-name: Deploy to Digital Ocean
-
+name: Build & Deploy to Digital Ocean
 on:
   push:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Build the Docker image
-        run: docker build . -t app
-
   deploy:
-    if: github.ref == 'refs/heads/master'
-    needs: build
     runs-on: ubuntu-latest
-
     steps:
       - name: Deploy to Digital Ocean Droplet
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.2
         with:
-          host: ${{ secrets.DROPLET_IP }}
-          username: ${{ secrets.DROPLET_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script_stop: true
-          script:
-            docker stop app || true
-            docker rm app || true
-            docker run -d -p 8080:8080 --name app app
+          host: ${{secrets.SSH_HOST}} # IP address of the server you wish to ssh into
+          key: ${{secrets.SSH_KEY}} # Private or public key of the server
+          username: ${{ secrets.SSH_USERNAME }} # User of the server you want to ssh into
 
-#            # Login to registry
-#            docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
-#            # Stop running container
-#            docker stop $(echo app)
-#            # Remove old container
-#            docker rm $(echo app)
-#            # Run a new container from a new image
-#            docker run -d \
-#            --restart always \
-#            --name $(echo app) \
-#            $(echo registry.digitalocean.com/zeynep16)/$(echo app):$(echo $GITHUB_SHA | head -c7)
+          script: |
+            mkdir test 
+            cd test 
+            git clone git@github.com:Mulubwa17/ci-cd-to-digitalocean-with-github-actions.git 
+            echo 'Deployment successful to digital ocean'
