@@ -4,18 +4,32 @@ on:
     branches: [master]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build the Docker image
+        run: docker build . -t app
+
   deploy:
+    if: github.ref == 'refs/heads/master'
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Digital Ocean Droplet
-        uses: appleboy/ssh-action@v0.1.2
+        uses: appleboy/ssh-action@master
         with:
           host: ${{secrets.SSH_HOST}} # IP address of the server you wish to ssh into
           key: ${{secrets.SSH_KEY}} # Private or public key of the server
           username: ${{ secrets.SSH_USERNAME }} # User of the server you want to ssh into
-
-          script: |
-            mkdir test 
-            cd test 
-            git clone git@github.com:zeynepsl/spring-boot-studies.git
-            echo 'Deployment successful to digital ocean'
+          script_stop: true
+          script:
+            docker stop app || true
+            docker rm app || true
+            docker run -d -p 8080:8080 --name app app
