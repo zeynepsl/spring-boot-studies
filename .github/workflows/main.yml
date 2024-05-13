@@ -65,4 +65,5 @@ jobs:
           script:
             docker stop app || true
             docker rm app || true
+            echo $CR_PAT | docker login ghcr.io -u zeynepsl --password-stdin
             docker run -d -p 8080:8080 --name app ghcr.io/zeynepsl/spring-boot-studies:master
