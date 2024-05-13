@@ -21,7 +21,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: zeyneprsalman/app:latest
+          tags: ghcr.io/zeynepsl/app:latest
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          GHCR_USERNAME: ${{ github.repository_owner }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
