@@ -65,4 +65,4 @@ jobs:
           script:
             docker stop app || true
             docker rm app || true
-            docker run -d -p 8080:8080 --name app app
+            docker run -d -p 8080:8080 --name app ghcr.io/zeynepsl/spring-boot-studies:master
