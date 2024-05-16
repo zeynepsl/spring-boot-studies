@@ -26,23 +26,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: control
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{secrets.SSH_HOST}} # IP address of the server you wish to ssh into
-          key: ${{secrets.SSH_KEY}} # Private or public key of the server
-          username: ${{ secrets.SSH_USERNAME }} # User of the server you want to ssh into
-          script_stop: true
-          script:
-            echo "start"
-            echo ${{ env.REGISTRY }} 
-            echo ${{ github.actor }}
-            echo ${{ secrets.CR_PAT }}
-            echo "end"
 
       # Uses the `docker/login-action` action to log in to the Container registry registry using the account and password that will publish the packages. Once published, the packages are scoped to the account defined here.
       - name: Log in to the Container registry
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -79,5 +66,5 @@ jobs:
           script:
             docker stop app || true
             docker rm app || true
-            echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u zeynepsl --password-stdin
-            docker run -d -p 8080:8080 --name app ghcr.io/zeynepsl/spring-boot-studies:master
+            echo ${{ secrets.CR_PAT }} | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+            docker run -d -p 8080:8080 --name app ${{ env.REGISTRY }}/${{ github.actor }}/spring-boot-studies:master
