@@ -27,6 +27,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: control
+        uses: actions/checkout@v4
         with:
          script:
           echo ${{ env.REGISTRY }} 
