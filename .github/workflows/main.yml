@@ -67,5 +67,4 @@ jobs:
             docker stop app || true
             docker rm app || true
             echo ${{ secrets.CR_PAT }} | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
-            #echo 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 | docker login ghcr.io -u zeynepsl --password-stdin
             docker run -d -p 8080:8080 --name app ${{ env.REGISTRY }}/${{ github.actor }}/spring-boot-studies:master
