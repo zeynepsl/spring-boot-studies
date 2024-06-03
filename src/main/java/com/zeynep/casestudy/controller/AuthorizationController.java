@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/resource")
 @RequiredArgsConstructor
 public class AuthorizationController {
 
     private final RequestLogService requestLogService;
 
-    @GetMapping
+    @GetMapping("hello")
     public ResponseEntity<String> sayHello() {
         return ResponseEntity.ok("Here is your resource");
     }
