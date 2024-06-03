@@ -68,7 +68,7 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           touch /tmp/test.txt
-          docker stop app || true
-          docker rm app || true
-          docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
-          docker run -d -p 8080:8080 --name app ${{ env.REGISTRY }}/${{ github.actor }}/spring-boot-studies:master
+          sudo docker stop app || true
+          sudo docker rm app || true
+          sudo docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+          sudo docker run -d -p 8080:8080 --name app ${{ env.REGISTRY }}/${{ github.actor }}/spring-boot-studies:master
