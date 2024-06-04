@@ -35,12 +35,4 @@ public class AuthController {
         return ResponseEntity.ok(authenticationService.signin(request));
     }
 
-    /*@PostMapping("/login")
-    public ResponseEntity<Map<String, String>> authRequest(@RequestBody AuthRequestDto authRequestDto) {
-        log.info("AuthResource.authRequest start {}", authRequestDto);
-        var userRegistrationResponse = authService.authRequest(authRequestDto);
-        log.info("AuthResource.authRequest end {}", userRegistrationResponse);
-        return new ResponseEntity<>(userRegistrationResponse, HttpStatus.OK);
-    }*/
-
 }
