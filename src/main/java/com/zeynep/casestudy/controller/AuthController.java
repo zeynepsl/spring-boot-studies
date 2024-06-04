@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 public class AuthController {
-
     private final AuthService authenticationService;
 
     @Timed
@@ -34,5 +33,4 @@ public class AuthController {
         Thread.sleep(1000);
         return ResponseEntity.ok(authenticationService.signin(request));
     }
-
 }
