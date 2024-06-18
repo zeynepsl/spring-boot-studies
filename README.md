@@ -11,4 +11,5 @@ Stpes:
    - AOP paradigm
    - pointcuts and wildcard expressions
    - joinpoints and advice arguments
- 
+- Deploy to Digital Ocean Droplet via Docker, Github Packages
+   - Deploy, CI/CD processes are completely okey. 165.227.139.4:8081/hello path is returning timeout error for now. Will fix as soon as possible. 
